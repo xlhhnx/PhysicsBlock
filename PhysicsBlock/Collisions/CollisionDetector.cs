@@ -5,7 +5,7 @@ using System.Collections.Generic;
 class CollisionDetector
 {
 
-    public bool CheckCollision(Fixture a, Fixture b, out Collision c)
+    public bool CheckCollision(SingleShapeFixture a, SingleShapeFixture b, out Collision c)
     {
         // Set default output
         bool collision = false;
@@ -27,7 +27,7 @@ class CollisionDetector
         return collision;
     }
 
-    public bool CircleToCircle(Fixture a, Fixture b, out Vector2 normal, out float penetration)
+    public bool CircleToCircle(SingleShapeFixture a, SingleShapeFixture b, out Vector2 normal, out float penetration)
     {
         // Set default output
         normal = Vector2.Zero;
@@ -57,7 +57,7 @@ class CollisionDetector
         return true;
     }
 
-    public bool BoxToBox(Fixture a, Fixture b, out Vector2 normal, out float penetration)
+    public bool BoxToBox(SingleShapeFixture a, SingleShapeFixture b, out Vector2 normal, out float penetration)
     {
         // Set default output
         normal = Vector2.Zero;
@@ -103,7 +103,7 @@ class CollisionDetector
         return true;
     }
 
-    public bool BoxToCircle(Fixture a, Fixture b, out Vector2 normal, out float penetration)
+    public bool BoxToCircle(SingleShapeFixture a, SingleShapeFixture b, out Vector2 normal, out float penetration)
     {
         // Set default output
         normal = Vector2.Zero;

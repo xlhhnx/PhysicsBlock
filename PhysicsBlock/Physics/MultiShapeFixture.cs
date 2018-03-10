@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-class MultiShapeFixture
+class MultiShapeFixture : Fixture
 {
     public Body Body { get { return body; } }
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-class SingleShapeFixture
+class SingleShapeFixture : Fixture
 {
     public Body Body { get { return body; } }
 

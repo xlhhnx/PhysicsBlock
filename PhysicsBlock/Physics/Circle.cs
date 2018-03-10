@@ -33,8 +33,9 @@ class Circle : Shape
     protected float radius;
 
 
-    public Circle(Vector2 position, float radius)
+    public Circle(Fixture parentFixture, Vector2 position, float radius)
     {
+        this.parentFixture = parentFixture;
         this.position = position;
         this.radius = radius;
     }

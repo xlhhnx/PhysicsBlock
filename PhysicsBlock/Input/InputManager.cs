@@ -5,7 +5,7 @@ class InputManager
 {
     protected event EventHandler<MouseClickArgs> mouseClickEvent;
     protected event EventHandler<MouseMoveArgs> mouseMoveEvent;
-    protected event EventHandler<KeyPressArgs> keyPressEvent;
+    protected event EventHandler<KeyStatesArgs> keyPressEvent;
 
     protected List<InputController> controllers;
 
@@ -44,7 +44,7 @@ class InputManager
         mouseMoveEvent.Invoke(this, args);
     }
 
-    public void onKeyPress(KeyPressArgs args)
+    public void onKeyPress(KeyStatesArgs args)
     {
         keyPressEvent.Invoke(this, args);
     }
@@ -55,10 +55,10 @@ class InputManager
             mouseClickEvent += (EventHandler<MouseClickArgs>)handler;
         else if (handler is EventHandler<MouseMoveArgs>)
             mouseMoveEvent += (EventHandler<MouseMoveArgs>)handler;
-        else if(handler is EventHandler<KeyPressArgs>)
-            keyPressEvent += (EventHandler<KeyPressArgs>)handler;
+        else if(handler is EventHandler<KeyStatesArgs>)
+            keyPressEvent += (EventHandler<KeyStatesArgs>)handler;
         else
-            throw new Exception($"UNHANDLED TYPE | [{handler}] does not have a valid Event Handler type.");
+            LogManager.LogWarning($"Unhandled Type | [{handler}] does not have a valid Event Handler type.");
     }
 
     public void Unsubscribe(object handler, Type type)
@@ -67,9 +67,9 @@ class InputManager
             mouseClickEvent -= (EventHandler<MouseClickArgs>)handler;
         else if(handler is EventHandler<MouseMoveArgs>)
             mouseMoveEvent -= (EventHandler<MouseMoveArgs>)handler;
-        else if (handler is EventHandler<KeyPressArgs>)
-            keyPressEvent -= (EventHandler<KeyPressArgs>)handler;
+        else if (handler is EventHandler<KeyStatesArgs>)
+            keyPressEvent -= (EventHandler<KeyStatesArgs>)handler;
         else
-            throw new Exception($"UNHANDLED TYPE | {handler} does not have a valid Event Handler type.");
+            LogManager.LogWarning($"Unhandled Type | {handler} does not have a valid Event Handler type.");
     }
 }

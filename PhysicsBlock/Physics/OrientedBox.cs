@@ -42,8 +42,9 @@ class OrientedBox : Shape
     protected Vector2 axis;
 
 
-    public OrientedBox(Vector2 position, Vector2 extent, Vector2 axis)
+    public OrientedBox(Fixture parentFixture, Vector2 position, Vector2 extent, Vector2 axis)
     {
+        this.parentFixture = parentFixture;
         this.position = position;
         this.extent = extent;
         this.axis = axis;

@@ -53,8 +53,9 @@ class Box : Shape
     protected Vector2 min;
 
 
-    public Box(Vector2 max, Vector2 min)
+    public Box(Fixture parentFixture, Vector2 max, Vector2 min)
     {
+        this.parentFixture = parentFixture;
         this.max = max;
         this.min = min;
     }
