@@ -3,17 +3,24 @@ using System.Collections.Generic;
 
 class InputManager
 {
+    #region Events
     protected event EventHandler<MouseClickArgs> mouseClickEvent;
     protected event EventHandler<MouseMoveArgs> mouseMoveEvent;
     protected event EventHandler<KeyStatesArgs> keyPressEvent;
+    #endregion
 
+    #region Variables
     protected List<InputController> controllers;
+    #endregion
 
+    #region Constructors
     public InputManager()
     {
         controllers = new List<InputController>();
     }
+    #endregion
 
+    #region Public Methods
     public void Update()
     {
         foreach(InputController controller in controllers) controller.Update();
@@ -36,17 +43,20 @@ class InputManager
 
     public void onMouseClick(MouseClickArgs args)
     {
-        mouseClickEvent.Invoke(this, args);
+        if (!(mouseClickEvent == null))
+            mouseClickEvent.Invoke(this, args);
     }
 
     public void onMouseMove(MouseMoveArgs args)
     {
-        mouseMoveEvent.Invoke(this, args);
+        if (!(mouseMoveEvent == null))
+            mouseMoveEvent.Invoke(this, args);
     }
 
     public void onKeyPress(KeyStatesArgs args)
     {
-        keyPressEvent.Invoke(this, args);
+        if(!(keyPressEvent == null))
+            keyPressEvent.Invoke(this, args);
     }
 
     public void Subscribe(object handler)
@@ -72,4 +82,5 @@ class InputManager
         else
             LogManager.LogWarning($"Unhandled Type | {handler} does not have a valid Event Handler type.");
     }
+    #endregion
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-class LogManager
+static class LogManager
 {
     #region Constants
     #endregion
@@ -14,25 +14,31 @@ class LogManager
     #endregion
 
     #region Static Variables
-    private static uint logLevel = 0;
+    private static uint logLevel = 1;
     #endregion
 
     #region Public Static Methods
-    public static void LogInformation(string message)
+    public static void LogVerbose(string message)
     {
         if (logLevel < 1)
+            Log($"VERBOSE: {message}");
+    }
+
+    public static void LogInformation(string message)
+    {
+        if (logLevel < 2)
             Log($"INFO: {message}");
     }
 
     public static void LogWarning(string message)
     {
-        if (logLevel < 2)
+        if (logLevel < 3)
             Log($"WARN: {message}");
     }
 
     public static void LogError(string message)
     {
-        if (logLevel < 3)
+        if (logLevel < 4)
             Log($"ERROR: {message}");
     }
 

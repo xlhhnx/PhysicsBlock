@@ -12,6 +12,8 @@ namespace PhysicsBlock
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        InputManager inputManager;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -27,6 +29,11 @@ namespace PhysicsBlock
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            inputManager = new InputManager();
+            KeyboardController kcontroller = new KeyboardController(inputManager);
+            inputManager.AddController(kcontroller);
+
+            LogManager.LogLevel = 0;
 
             base.Initialize();
         }
@@ -60,6 +67,7 @@ namespace PhysicsBlock
         protected override void Update(GameTime gameTime)
         {
             // TODO: Add your update logic here
+            inputManager.Update();
 
             base.Update(gameTime);
         }

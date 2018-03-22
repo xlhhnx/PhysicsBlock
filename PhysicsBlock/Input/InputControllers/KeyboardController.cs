@@ -5,10 +5,13 @@ using System.Linq;
 
 class KeyboardController : InputController
 {
+    #region Variables
     protected InputManager manager;
     protected KeyboardState currentKeyboardState;
     protected Dictionary<Keys, ButtonState> previousKeyStates;
+    #endregion
 
+    #region Constructors
     public KeyboardController(InputManager manager)
     {
         this.manager = manager;
@@ -18,7 +21,9 @@ class KeyboardController : InputController
         foreach(Keys k in Enum.GetValues(typeof(Keys)))
             previousKeyStates.Add(k, ButtonState.Up);
     }
+    #endregion
 
+    #region Public Methods
     public void Update()
     {
         currentKeyboardState = Keyboard.GetState();
@@ -37,7 +42,9 @@ class KeyboardController : InputController
         manager.onKeyPress(new KeyStatesArgs(currentKeyStates));
         previousKeyStates = currentKeyStates;
     }
+    #endregion
 
+    #region Protected Methods
     protected void CalculateState(Keys k, out ButtonState state)
     {
         bool keyDown = currentKeyboardState.IsKeyDown(k);
@@ -47,33 +54,61 @@ class KeyboardController : InputController
         {
             case (ButtonState.Down):
                 {
-                    if (keyDown) state = ButtonState.Down;
-                    else state = ButtonState.Released;
+                    if (keyDown)
+                        state = ButtonState.Down;
+                    else
+                    {
+                        LogManager.LogVerbose($"Key {k} state changed from {prevState} to {ButtonState.Released}");
+                        state = ButtonState.Released;
+                    }
                 }
                 break;
             case (ButtonState.Pressed):
                 {
-                    if (keyDown) state = ButtonState.Down;
-                    else state = ButtonState.Released;
+                    if (keyDown)
+                    {
+                        LogManager.LogVerbose($"Key {k} state changed from {prevState} to {ButtonState.Down}");
+                        state = ButtonState.Down;
+                    }
+                    else
+                    {
+                        LogManager.LogVerbose($"Key {k} state changed from {prevState} to {ButtonState.Released}");
+                        state = ButtonState.Released;
+                    }
                 }
                 break;
             case (ButtonState.Released):
                 {
-                    if (keyDown) state = ButtonState.Pressed;
-                    else state = ButtonState.Up;
+                    if (keyDown)
+                    {
+                        LogManager.LogVerbose($"Key {k} state changed from {prevState} to {ButtonState.Pressed}");
+                        state = ButtonState.Pressed;
+                    }
+                    else
+                    {
+                        LogManager.LogVerbose($"Key {k} state changed from {prevState} to {ButtonState.Up}");
+                        state = ButtonState.Up;
+                    }
                 }
                 break;
             case (ButtonState.Up):
                 {
-                    if (keyDown) state = ButtonState.Pressed;
-                    else state = ButtonState.Up;
+                    if (keyDown)
+                    {
+                        LogManager.LogVerbose($"Key {k} state changed from {prevState} to {ButtonState.Pressed}");
+                        state = ButtonState.Pressed;
+                    }
+                    else
+                        state = ButtonState.Up;
                 }
                 break;
             default:
                 {
+                    LogManager.LogVerbose($"Key {k} state changed from {prevState} to {ButtonState.Up}");
                     state = ButtonState.Up;
                 }
                 break;
         }
     }
+    #endregion
 }
